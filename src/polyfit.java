@@ -1,26 +1,69 @@
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
+import java.io.*;
+import java.util.*;
 import java.text.DecimalFormat;
-import java.util.Random;
 
 public class polyfit {
-    private final static int n = 20;
     public static void main(String[] args) {
-        Random random = new Random();
-        double[] x = new double[n];
-        double[] y = new double[n];
+        List<String> list = new ArrayList<String>();
+        try {
+            File file = new File("data/Advertising.csv");
+            if (file.isFile() && file.exists()) {
+                InputStreamReader read = new InputStreamReader(
+                        new FileInputStream(file), "gbk");
+                BufferedReader bufferedReader = new BufferedReader(read);
+                String lineText = null;
 
-        for (int i = 0; i < n; i++) {
-            x[i] = Double.valueOf(Math.floor(random.nextDouble()*(99-1)));
-            y[i] = Double.valueOf(Math.floor(random.nextDouble()*(999-1)));
+                while ((lineText = bufferedReader.readLine()) != null) {
+                    list.add(lineText);
+                }
+                bufferedReader.close();
+                read.close();
+            } else {
+                System.out.println("file not exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("error happened when read file.");
+            e.printStackTrace();
         }
 
-        estimate(x, y, x.length);
+        double[][] data = new double[list.size()][4];
+        String s = "";
+        list.remove(0);
+        for (int l = 0; l < list.size(); l++) {
+            s = list.get(l);
+            s = s.substring(s.indexOf(",") + 1);
+            list.set(l, s);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            String[] lineArr = list.get(i).split(",");
+            for (int j = 0; j < 4; j++) {
+                s = lineArr[j];
+                data[i][j] = Double.parseDouble(s);
+            }
+        }
+
+        double[] x = new double[list.size()];
+        double[] y = new double[list.size()];
+
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                x[i] = data[i][0];
+                y[i] = data[i][1];
+            }
+        } catch (ArrayIndexOutOfBoundsException a) {
+            System.out.println("array error");
+        }
+
+        estimate(x, y);
     }
 
-    /*解方程组
+    /* 解方程组
     * a + b*sum(x) = sum(y)
     * a*sum(x) + b*sum(x^2) = sum(x*y);
     * */
-    public static void estimate(double[] x, double[] y, int n) {
+    public static void estimate(double[] x, double[] y) {
         double b = getB(x, y);
         double a = getA(x, y, b);
         DecimalFormat df = new DecimalFormat("#,##0.00");
