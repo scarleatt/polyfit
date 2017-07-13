@@ -36,22 +36,20 @@ public class polyfit {
             }
         }
         double[][] XXT = multip(XT, X);
-//        XXT = pinv(XXT);
-        XXT = multip(XXT, XT);
+//        XXT = multip((pinv(XXT)), XT);
+        XXT = pinv(XXT);
 
-//        for (int i = 0; i < features; i++) {
-//            for (int j = 0; j < features; j++) {
-//                System.out.print(XXT[i][j]+"   ");
-//            }
-//            System.out.print("\n");
-//        }
-        double[][] test = {{1,4,7}, {3,0,5}, {-1,9,11}};
 
-        System.out.println(getAlgebra(test, 2,3));
+        for (int i = 0; i < features; i++) {
+            for (int j = 0; j < features; j++) {
+                System.out.print(XXT[i][j]+"   ");
+            }
+            System.out.print("\n");
+        }
 
 
     }
-    //计算代数余子式
+    //返回第h行第v列的代数余子式
     public static double[][] getAlgebra(double[][] data, int h, int v) {
         int H = data.length;
         int V = data[0].length;
@@ -78,32 +76,44 @@ public class polyfit {
         return temp;
     }
 
-    public static double getHL2(double[][] data) {
-        double num1 = data[0][0]*data[1][1];
-        double num2 = -data[0][1]*data[1][0];
+    //计算行列式的值
+    public static double getNum(double[][] data) {
+        double temp = 0;
+        double[] num = new double[data.length];
 
-        return num1+num2;
-    }
-    public static double getHL3(double[][] data) {
-        double num1 = data[]
-    }
+        if (data.length == 2) {
+            return data[0][0]*data[1][1]-data[0][1]*data[1][0];
+        }
 
-    //矩阵的逆
-    public static double[][] pinv(double[][] X) {
-        double[][] temp = {{}};
+        for (int i = 0; i < data.length; i++) {
+            num[i] = data[0][i]*getNum(getAlgebra(data,1,i+1));
+            if ((i+2)%2 == 1) {
+                num[i] = 0-num[i];
+            }
+        }
 
+        for (int i = 0; i < num.length; i++) {
+            temp += num[i];
+        }
         return temp;
     }
 
-    //计算行列式的值
-    public static double[][] getNum(double[][] X) {
+    //矩阵的逆
+    public static double[][] pinv(double[][] data) {
+        int h = data.length;
+        int v = data[0].length;
+        double[][] temp = new double[h][v];
+        double num = getNum(data);
 
-    }
-
-    //伴随矩阵
-    public static double[][] getBy(double[][] X, int h, int w) {
-        double[][] temp = new double[h][w];
-
+        for (int i = 0; i < h; i++) {
+            for (int j =0 ; j < v; j++) {
+                temp[i][j] = getNum(getAlgebra(data,i+1,j+1));
+                if ((i+j+2)%2 == 1) {
+                    temp[i][j] = 0-temp[i][j];
+                }
+                temp[i][j] /= num;
+            }
+        }
         return temp;
     }
 
