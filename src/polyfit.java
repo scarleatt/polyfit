@@ -5,6 +5,7 @@ import java.util.*;
 import java.text.DecimalFormat;
 
 public class polyfit {
+    public static int features = 4;
     public static void main(String[] args) {
         List<String> list = new ArrayList<String>();
         try {
@@ -28,7 +29,8 @@ public class polyfit {
             e.printStackTrace();
         }
 
-        double[][] data = new double[list.size()][4];
+        double[][] X = new double[list.size()][features];
+        double[] Y = new double[list.size()];
         String s = "";
         list.remove(0);
         for (int l = 0; l < list.size(); l++) {
@@ -38,68 +40,58 @@ public class polyfit {
         }
         for (int i = 0; i < list.size(); i++) {
             String[] lineArr = list.get(i).split(",");
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j < features; j++) {
                 s = lineArr[j];
-                data[i][j] = Double.parseDouble(s);
+                X[i][0] = 1;
+                X[i][j] = Double.parseDouble(s);
+                Y[i] = Double.parseDouble(lineArr[3]);
             }
         }
 
-        double[] x = new double[list.size()];
-        double[] y = new double[list.size()];
-
-        try {
-            for (int i = 0; i < list.size(); i++) {
-                x[i] = data[i][0];
-                y[i] = data[i][1];
+        double[] octave = {};
+        double[][] XT = new double[features][list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < features; j++) {
+                XT[j][i] = X[i][j];
             }
-        } catch (ArrayIndexOutOfBoundsException a) {
-            System.out.println("array error");
+        }
+        double[][] XXT = multip(XT, X, features, features, list.size());
+//        XXT = pinv(XXT);
+//        XXT = multip(XXT, XT, features, list.size(), features);
+
+        System.out.println(list.size());
+
+        for (int i = 0; i < features; i++) {
+            for (int j = 0; j < features; j++) {
+                System.out.print(XXT[i][j]+"   ");
+            }
+            System.out.print("\n");
         }
 
-        estimate(x, y);
     }
 
-    /* 解方程组
-    * a + b*sum(x) = sum(y)
-    * a*sum(x) + b*sum(x^2) = sum(x*y);
-    * */
-    public static void estimate(double[] x, double[] y) {
-        double b = getB(x, y);
-        double a = getA(x, y, b);
-        DecimalFormat df = new DecimalFormat("#,##0.00");
-        System.out.println("y="+df.format(a)+"x+"+df.format(b));
+    //矩阵乘积
+    public static double[][] multip(double[][] X, double[][] Y, int xlen, int ylen, int len) {
+        double[][] temp = new double[xlen][ylen];
+
+        for (int i = 0; i < xlen; i++) {
+            for (int j = 0; j < ylen; j++) {
+                double sum = 0;
+                for (int k = 0; k < len; k++) {
+                    sum += X[i][k]*Y[k][j];
+                }
+                temp[i][j] = sum;
+            }
+        }
+
+        return temp;
     }
 
-    public static double getA(double[] x, double[] y, double b) {
-        double n = x.length;
-        return (sum(y)-sum(x)*b)/n;
+    //矩阵的逆
+    public static double[][] pinv(double[][] X) {
+        double[][] temp = {{}};
+
+        return temp;
     }
 
-    public static double getB(double[] x, double[] y) {
-        double n = x.length;
-        return (sum(x)*sum(y)-n*pSum(x,y))/(Math.pow(sum(x),2)-n*sqSum(x));
-    }
-
-    public static double sum(double[] ds) {
-        double  s = 0;
-        for (double d:ds)
-            s = s+d;
-        return s;
-    }
-
-    //计算平方和
-    public static double sqSum(double[] ds) {
-        double s = 0;
-        for (double d:ds)
-            s = s + Math.pow(d, 2);
-        return s;
-    }
-
-    //计算sum(x*y)
-    public static double pSum(double[] x, double[] y) {
-        double s = 0;
-        for (int i = 0; i < x.length; i++)
-            s = s + x[i] * y[i];
-        return s;
-    }
 }
