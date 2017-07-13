@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9c327dc-1397-4794-822c-8d66ad40e3d0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/polyfit.java" afterPath="$PROJECT_DIR$/src/polyfit.java" />
-    </list>
+    <list default="true" id="b9c327dc-1397-4794-822c-8d66ad40e3d0" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -646,12 +644,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1499905367038</updated>
-      <workItem from="1499905372623" duration="28091000" />
+      <workItem from="1499905372623" duration="28133000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28091000" />
+    <option name="totallyTimeSpent" value="28133000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="627" y="0" width="653" height="800" extended-state="6" />
