@@ -83,7 +83,7 @@ public class polyfit {
         for (int i = 0; i < data.length; i++) {
             num[i] = data[0][i]*getNum(getAlgebra(data,1,i+1));
             if ((i+2)%2 == 1) {
-                num[i] = 0-num[i];
+                num[i] = -num[i];
             }
         }
 
@@ -104,7 +104,7 @@ public class polyfit {
             for (int j =0 ; j < v; j++) {
                 temp[i][j] = getNum(getAlgebra(data,i+1,j+1));
                 if ((i+j+2)%2 == 1) {
-                    temp[i][j] = 0-temp[i][j];
+                    temp[i][j] = -temp[i][j];
                 }
                 temp[i][j] /= num;
             }

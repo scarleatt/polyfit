@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9c327dc-1397-4794-822c-8d66ad40e3d0" name="Default" comment="" />
+    <list default="true" id="b9c327dc-1397-4794-822c-8d66ad40e3d0" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/polyfit.java" afterPath="$PROJECT_DIR$/src/polyfit.java" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,11 +18,11 @@
       <file leaf-file-name="polyfit.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/polyfit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2270">
-              <caret line="11" column="45" lean-forward="true" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+            <state relative-caret-position="411">
+              <caret line="106" column="33" lean-forward="false" selection-start-line="106" selection-start-column="33" selection-end-line="106" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4457#4465#0" expanded="true" />
+                <element signature="e#4455#4463#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -644,12 +646,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1499905367038</updated>
-      <workItem from="1499905372623" duration="28133000" />
+      <workItem from="1499905372623" duration="28777000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28133000" />
+    <option name="totallyTimeSpent" value="28777000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="627" y="0" width="653" height="800" extended-state="6" />
@@ -727,11 +729,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/polyfit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2270">
-          <caret line="11" column="45" lean-forward="true" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
+        <state relative-caret-position="411">
+          <caret line="106" column="33" lean-forward="false" selection-start-line="106" selection-start-column="33" selection-end-line="106" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4457#4465#0" expanded="true" />
+            <element signature="e#4455#4463#0" expanded="true" />
           </folding>
         </state>
       </provider>
