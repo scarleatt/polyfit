@@ -39,13 +39,72 @@ public class polyfit {
 //        XXT = pinv(XXT);
         XXT = multip(XXT, XT);
 
-        for (int i = 0; i < features; i++) {
-            for (int j = 0; j < features; j++) {
-                System.out.print(XXT[i][j]+"   ");
-            }
-            System.out.print("\n");
-        }
+//        for (int i = 0; i < features; i++) {
+//            for (int j = 0; j < features; j++) {
+//                System.out.print(XXT[i][j]+"   ");
+//            }
+//            System.out.print("\n");
+//        }
+        double[][] test = {{1,4,7}, {3,0,5}, {-1,9,11}};
 
+        System.out.println(getAlgebra(test, 2,3));
+
+
+    }
+    //计算代数余子式
+    public static double[][] getAlgebra(double[][] data, int h, int v) {
+        int H = data.length;
+        int V = data[0].length;
+        double[][] temp = new double[H-1][V-1];
+        for (int i = 0; i < H-1; i++) {
+            if (i < h-1) {
+                for (int j = 0; j < V-1; j++) {
+                    if (j < v-1) {
+                        temp[i][j] = data[i][j];
+                    } else {
+                        temp[i][j] = data[i][j+1];
+                    }
+                }
+            } else {
+                for (int j = 0; j < V-1; j++) {
+                    if (j < v-1) {
+                        temp[i][j] = data[i+1][j];
+                    } else {
+                        temp[i][j] = data[i+1][j+1];
+                    }
+                }
+            }
+        }
+        return temp;
+    }
+
+    public static double getHL2(double[][] data) {
+        double num1 = data[0][0]*data[1][1];
+        double num2 = -data[0][1]*data[1][0];
+
+        return num1+num2;
+    }
+    public static double getHL3(double[][] data) {
+        double num1 = data[]
+    }
+
+    //矩阵的逆
+    public static double[][] pinv(double[][] X) {
+        double[][] temp = {{}};
+
+        return temp;
+    }
+
+    //计算行列式的值
+    public static double[][] getNum(double[][] X) {
+
+    }
+
+    //伴随矩阵
+    public static double[][] getBy(double[][] X, int h, int w) {
+        double[][] temp = new double[h][w];
+
+        return temp;
     }
 
     //矩阵乘积
@@ -60,13 +119,6 @@ public class polyfit {
                 temp[i][j] = sum;
             }
         }
-        return temp;
-    }
-
-    //矩阵的逆
-    public static double[][] pinv(double[][] X) {
-        double[][] temp = {{}};
-
         return temp;
     }
 
@@ -93,9 +145,7 @@ public class polyfit {
             System.out.println("error happened when read file.");
             e.printStackTrace();
         }
-
         list.remove(0);
         return list;
     }
-
 }
