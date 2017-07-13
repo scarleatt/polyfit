@@ -36,19 +36,14 @@ public class polyfit {
             }
         }
         double[][] XXT = multip(XT, X);
-//        XXT = multip((pinv(XXT)), XT);
-        XXT = pinv(XXT);
-
+        XXT = multip((pinv(XXT)), XT);
+        octave = multip(XXT, Y);
 
         for (int i = 0; i < features; i++) {
-            for (int j = 0; j < features; j++) {
-                System.out.print(XXT[i][j]+"   ");
-            }
-            System.out.print("\n");
+            System.out.println(octave[i]);
         }
-
-
     }
+
     //返回第h行第v列的代数余子式
     public static double[][] getAlgebra(double[][] data, int h, int v) {
         int H = data.length;
@@ -120,6 +115,9 @@ public class polyfit {
     //矩阵乘积
     public static double[][] multip(double[][] X, double[][] Y) {
         double[][] temp = new double[X.length][Y[0].length];
+        if (X[0].length != Y.length) {
+            return temp;
+        }
         for (int i = 0; i < X.length; i++) {
             for (int j = 0; j < Y[0].length; j++) {
                 double sum = 0;
@@ -128,6 +126,20 @@ public class polyfit {
                 }
                 temp[i][j] = sum;
             }
+        }
+        return temp;
+    }
+    public static double[] multip(double[][] X, double[] Y) {
+        double[] temp = new double[Y.length];
+        if (X[0].length != Y.length) {
+            return temp;
+        }
+        for (int i = 0; i < X.length; i++) {
+            double sum = 0;
+            for (int j = 0; j < Y.length; j++) {
+                sum += X[i][j]*Y[j];
+            }
+            temp[i] = sum;
         }
         return temp;
     }
