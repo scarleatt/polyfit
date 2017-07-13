@@ -1,8 +1,5 @@
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import java.io.*;
 import java.util.*;
-import java.text.DecimalFormat;
 
 public class polyfit {
     public static int features = 4;
