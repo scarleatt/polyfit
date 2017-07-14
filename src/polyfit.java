@@ -23,7 +23,6 @@ public class polyfit {
                 Y[i] = Double.parseDouble(lineArr[3]);
             }
         }
-
         X = pretreatment(X);
         Y = pretreatment(Y);
 
@@ -40,8 +39,22 @@ public class polyfit {
         octave = multip(XXT, Y);
 
         for (int i = 0; i < features; i++) {
-            System.out.print(octave[i]+"  ");
+            System.out.println(octave[i]);
         }
+//
+//        double[][] data = {
+//                {1,2,-1 },
+//                {3,1,0 },
+//                {-1,-1,-2 },};
+//        data = pinv(data);
+//
+//        for (int i = 0; i < data.length; i++) {
+//            for (int j = 0; j < data[0].length; j++) {
+//                System.out.print(data[i][j]+"  ");
+//            }
+//            System.out.print("\n");
+//        }
+
     }
 
     //返回第h行第v列的代数余子式
@@ -129,6 +142,7 @@ public class polyfit {
         }
         return temp;
     }
+
     public static double[] multip(double[][] X, double[] Y) {
         double[] temp = new double[Y.length];
         if (X[0].length != Y.length) {
@@ -205,15 +219,6 @@ public class polyfit {
         return maxNum;
     }
 
-    public static double max(double[] data) {
-        int h = data.length;
-        double maxNum = data[0];
-        for (int i = 0; i < h; i++)
-            if (maxNum < data[i])
-                maxNum = data[i];
-        return maxNum;
-    }
-
     public static double min(double[][] data) {
         int h = data.length;
         int v = data[0].length;
@@ -224,6 +229,15 @@ public class polyfit {
                 if (minNum > data[i][j])
                     minNum = data[i][j];
         return minNum;
+    }
+
+    public static double max(double[] data) {
+        int h = data.length;
+        double maxNum = data[0];
+        for (int i = 0; i < h; i++)
+            if (maxNum < data[i])
+                maxNum = data[i];
+        return maxNum;
     }
     public static double min(double[] data) {
         int h = data.length;
