@@ -4,7 +4,7 @@ import java.util.*;
 public class polyfit {
     public static int features = 4;
     public static void main(String[] args) {
-        List<String> list = pretreatment("data/Advertising.csv");
+        List<String> list = readData("data/Advertising.csv");
         double[][] X = new double[list.size()][features];
         double[] Y = new double[list.size()];
         String s = "";
@@ -24,6 +24,9 @@ public class polyfit {
             }
         }
 
+        X = pretreatment(X);
+        Y = pretreatment(Y);
+
         //octave = pinv(XT*X)*XT*Y
         double[] octave = {};
         double[][] XT = new double[features][list.size()];
@@ -37,7 +40,7 @@ public class polyfit {
         octave = multip(XXT, Y);
 
         for (int i = 0; i < features; i++) {
-            System.out.println(octave[i]);
+            System.out.print(octave[i]+"  ");
         }
     }
 
@@ -141,8 +144,8 @@ public class polyfit {
         return temp;
     }
 
-    //数据预处理
-    public static List<String> pretreatment(String pathname) {
+    //数据读取
+    public static List<String> readData(String pathname) {
         List<String> list = new ArrayList<String>();
         try {
             File file = new File(pathname);
@@ -153,7 +156,9 @@ public class polyfit {
                 String lineText = null;
 
                 while ((lineText = bufferedReader.readLine()) != null) {
-                    list.add(lineText);
+//                    if (list.size() <= 100) {
+                        list.add(lineText);
+//                    }
                 }
                 bufferedReader.close();
                 read.close();
@@ -166,5 +171,66 @@ public class polyfit {
         }
         list.remove(0);
         return list;
+    }
+
+    //数据归一化
+    public static double[][] pretreatment(double[][] data) {
+        int h = data.length;
+        int v = data[0].length;
+        double maxNum = max(data);
+        double minNum = min(data);
+        for (int i = 0; i < h; i++)
+            for (int j = 0; j < v; j++)
+                data[i][j] = (data[i][j]-minNum)/(maxNum-minNum);
+        return data;
+    }
+    public static double[] pretreatment(double[] data) {
+        int h = data.length;
+        double maxNum = max(data);
+        double minNum = min(data);
+        for (int i = 0; i < h; i++)
+            data[i] = (data[i]-minNum)/(maxNum-minNum);
+        return data;
+    }
+
+    public static double max(double[][] data) {
+        int h = data.length;
+        int v = data[0].length;
+        double maxNum = data[0][0];
+
+        for (int i = 0; i < h; i++)
+            for (int j = 0; j < v; j++)
+                if (maxNum < data[i][j])
+                    maxNum = data[i][j];
+        return maxNum;
+    }
+
+    public static double max(double[] data) {
+        int h = data.length;
+        double maxNum = data[0];
+        for (int i = 0; i < h; i++)
+            if (maxNum < data[i])
+                maxNum = data[i];
+        return maxNum;
+    }
+
+    public static double min(double[][] data) {
+        int h = data.length;
+        int v = data[0].length;
+        double minNum = data[0][0];
+
+        for (int i = 0; i < h; i++)
+            for (int j = 0; j < v; j++)
+                if (minNum > data[i][j])
+                    minNum = data[i][j];
+        return minNum;
+    }
+    public static double min(double[] data) {
+        int h = data.length;
+        double minNum = data[0];
+        for (int i = 0; i < h; i++)
+            if (minNum > data[i])
+                minNum = data[i];
+        return minNum;
     }
 }
